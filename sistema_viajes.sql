@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2026 a las 06:57:30
+-- Tiempo de generación: 14-10-2026 a las 07:26:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -32,6 +32,17 @@ CREATE TABLE `actividades` (
   `Nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `actividades`
+--
+
+INSERT INTO `actividades` (`ID_Actividad`, `Nombre`) VALUES
+(1, 'Excursión'),
+(2, 'Senderismo'),
+(3, 'Visita guiada'),
+(4, 'Paseo en barco'),
+(5, 'Turismo gastronómico');
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +55,17 @@ CREATE TABLE `asiento` (
   `NroAsiento` varchar(10) NOT NULL,
   `Disponible` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `asiento`
+--
+
+INSERT INTO `asiento` (`ID_Asiento`, `FK_ID_Vehiculo`, `NroAsiento`, `Disponible`) VALUES
+(1, 1, '01', 0),
+(2, 2, '01', 0),
+(3, 3, '01', 0),
+(4, 4, '01', 0),
+(5, 5, '01', 0);
 
 -- --------------------------------------------------------
 
@@ -61,6 +83,17 @@ CREATE TABLE `choferes` (
   `FechaNacimiento` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `choferes`
+--
+
+INSERT INTO `choferes` (`ID_Chofer`, `Nombre`, `Apellido`, `DNI`, `Telefono`, `Email`, `FechaNacimiento`) VALUES
+(1, 'Carlos', 'Gómez', '30111222', '3704123456', 'carlos.gomez@email.com', '1980-05-12'),
+(2, 'Miguel', 'Fernández', '28444555', '3704234567', 'miguel.fernandez@email.com', '1978-08-20'),
+(3, 'Jorge', 'Ramírez', '32666777', '3704345678', 'jorge.ramirez@email.com', '1985-03-15'),
+(4, 'Pablo', 'Martínez', '35777888', '3704456789', 'pablo.martinez@email.com', '1988-11-02'),
+(5, 'Roberto', 'Benítez', '26333999', '3704567890', 'roberto.benitez@email.com', '1975-07-25');
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +103,31 @@ CREATE TABLE `choferes` (
 CREATE TABLE `clases` (
   `ID_Clase` int(11) NOT NULL,
   `Clase` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `clases`
+--
+
+INSERT INTO `clases` (`ID_Clase`, `Clase`) VALUES
+(1, 'Económica'),
+(2, 'Ejecutiva'),
+(3, 'Turista'),
+(4, 'Premium'),
+(5, 'Primera clase');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `codigos_verificacion`
+--
+
+CREATE TABLE `codigos_verificacion` (
+  `ID_Codigo` int(11) NOT NULL,
+  `FK_ID_PasajeroOnline` int(11) NOT NULL,
+  `Codigo` varchar(6) NOT NULL,
+  `FechaCreacion` datetime NOT NULL DEFAULT current_timestamp(),
+  `FechaExpiracion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -84,6 +142,17 @@ CREATE TABLE `destino` (
   `Link` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `destino`
+--
+
+INSERT INTO `destino` (`ID_Destino`, `NombreUbicacion`, `Link`) VALUES
+(1, 'Formosa, Formosa', 'https://maps.google.com/?q=Formosa+Argentina'),
+(2, 'Puerto Iguazú, Misiones', 'https://maps.google.com/?q=Puerto+Iguazu'),
+(3, 'Bariloche, Río Negro', 'https://maps.google.com/?q=Bariloche'),
+(4, 'Salta, Salta', 'https://maps.google.com/?q=Salta+Argentina'),
+(5, 'Mendoza, Mendoza', 'https://maps.google.com/?q=Mendoza+Argentina');
+
 -- --------------------------------------------------------
 
 --
@@ -95,6 +164,17 @@ CREATE TABLE `detalle_evento` (
   `FK_ID_Viaje` int(11) NOT NULL,
   `FK_ID_Evento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_evento`
+--
+
+INSERT INTO `detalle_evento` (`ID_DetalleEvento`, `FK_ID_Viaje`, `FK_ID_Evento`) VALUES
+(1, 1, 1),
+(2, 2, 4),
+(3, 3, 2),
+(4, 4, 5),
+(5, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -110,6 +190,17 @@ CREATE TABLE `establecimiento` (
   `TitularACargo` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `establecimiento`
+--
+
+INSERT INTO `establecimiento` (`ID_Establecimiento`, `Nombre`, `Localidad`, `Ubicacion`, `TitularACargo`) VALUES
+(1, 'Sucursal Formosa Centro', 'Formosa', 'Av. 25 de Mayo 850', 'Laura Fernández'),
+(2, 'Sucursal Resistencia', 'Chaco', 'Av. Sarmiento 1250', 'Carlos Martínez'),
+(3, 'Sucursal Posadas', 'Misiones', 'Calle Bolívar 540', 'María López'),
+(4, 'Sucursal Salta', 'Salta', 'Av. Belgrano 920', 'Jorge Gómez'),
+(5, 'Sucursal Mendoza', 'Mendoza', 'Av. San Martín 650', 'Sofía Ramírez');
+
 -- --------------------------------------------------------
 
 --
@@ -123,6 +214,17 @@ CREATE TABLE `eventos` (
   `Fecha_Final` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `eventos`
+--
+
+INSERT INTO `eventos` (`ID_Evento`, `Nombre`, `Fecha_Inicio`, `Fecha_Final`) VALUES
+(1, 'Festival de la Selva', '2026-09-10', '2026-09-12'),
+(2, 'Fiesta de la Nieve', '2026-08-15', '2026-08-20'),
+(3, 'Fiesta Nacional de la Vendimia', '2027-03-01', '2027-03-10'),
+(4, 'Festival de Música de Salta', '2026-10-05', '2026-10-07'),
+(5, 'Encuentro Cultural del Litoral', '2026-11-12', '2026-11-15');
+
 -- --------------------------------------------------------
 
 --
@@ -134,6 +236,17 @@ CREATE TABLE `evento_actividad` (
   `FK_ID_Evento` int(11) NOT NULL,
   `FK_ID_Actividad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `evento_actividad`
+--
+
+INSERT INTO `evento_actividad` (`ID_EventoActividad`, `FK_ID_Evento`, `FK_ID_Actividad`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 5),
+(4, 4, 3),
+(5, 5, 4);
 
 -- --------------------------------------------------------
 
@@ -150,6 +263,17 @@ CREATE TABLE `hoteles` (
   `FK_ID_THabitacion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `hoteles`
+--
+
+INSERT INTO `hoteles` (`ID_Hotel`, `Nombre`, `FK_ID_ValoracionH`, `Ubicacion`, `CantidadHabitaciones`, `FK_ID_THabitacion`) VALUES
+(1, 'Hotel Cataratas', 1, 'Puerto Iguazú, Misiones', 80, 2),
+(2, 'Hotel Patagonia', 2, 'Bariloche, Río Negro', 120, 4),
+(3, 'Hotel Salta Plaza', 3, 'Salta Capital', 70, 3),
+(4, 'Hotel Mendoza Sol', 4, 'Ciudad de Mendoza', 100, 4),
+(5, 'Hotel Formosa Central', 5, 'Formosa Capital', 60, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -161,6 +285,17 @@ CREATE TABLE `hotel_servicios` (
   `FK_ID_Hotel` int(11) NOT NULL,
   `FK_ID_Servicio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `hotel_servicios`
+--
+
+INSERT INTO `hotel_servicios` (`ID_HotelServicio`, `FK_ID_Hotel`, `FK_ID_Servicio`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 3),
+(4, 3, 5),
+(5, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -175,6 +310,39 @@ CREATE TABLE `h_viajes` (
   `Observaciones` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `h_viajes`
+--
+
+INSERT INTO `h_viajes` (`ID_HViaje`, `FK_ID_Viaje`, `ValoracionPromedio`, `Observaciones`) VALUES
+(1, 1, 4.5, 'Viaje realizado sin inconvenientes'),
+(2, 2, 4.0, 'Buen servicio general'),
+(3, 3, 4.8, 'Excelente experiencia'),
+(4, 4, 3.9, 'Servicio correcto'),
+(5, 5, 4.6, 'Muy buena atención');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `infoviajes`
+--
+
+CREATE TABLE `infoviajes` (
+  `ID_Info` int(11) NOT NULL,
+  `FK_ID_Viaje` int(11) NOT NULL,
+  `Informacion` text NOT NULL,
+  `Clima` varchar(100) DEFAULT '24°C - Templado',
+  `Moneda` varchar(50) DEFAULT 'Peso Argentino (ARS)',
+  `Recomendaciones` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `infoviajes`
+--
+
+INSERT INTO `infoviajes` (`ID_Info`, `FK_ID_Viaje`, `Informacion`, `Clima`, `Moneda`, `Recomendaciones`) VALUES
+(1, 1, 'Puerto Iguazú alberga una de las 7 Maravillas Naturales del Mundo. Recuerda conservar tu voucher para el ingreso al Parque Nacional.', '28°C - Caluroso y Húmedo', 'Peso Argentino (ARS)', '67');
+
 -- --------------------------------------------------------
 
 --
@@ -186,6 +354,17 @@ CREATE TABLE `mediotransporte` (
   `Nombre` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `mediotransporte`
+--
+
+INSERT INTO `mediotransporte` (`ID_MedioTrans`, `Nombre`) VALUES
+(1, 'Ómnibus'),
+(2, 'Avión'),
+(3, 'Minibús'),
+(4, 'Van'),
+(5, 'Tren');
+
 -- --------------------------------------------------------
 
 --
@@ -196,6 +375,17 @@ CREATE TABLE `metodopago` (
   `ID_Metodo` int(11) NOT NULL,
   `Metodo` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `metodopago`
+--
+
+INSERT INTO `metodopago` (`ID_Metodo`, `Metodo`) VALUES
+(1, 'Efectivo'),
+(2, 'Tarjeta de débito'),
+(3, 'Tarjeta de crédito'),
+(4, 'Transferencia bancaria'),
+(5, 'Mercado Pago');
 
 -- --------------------------------------------------------
 
@@ -214,6 +404,17 @@ CREATE TABLE `pago` (
   `FK_ID_Establecimiento` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `pago`
+--
+
+INSERT INTO `pago` (`ID_Pago`, `FK_ID_Pasaje`, `FK_ID_Metodo1`, `FK_ID_Metodo2`, `Monto1`, `Monto2`, `Fecha`, `FK_ID_Establecimiento`) VALUES
+(1, 1, 5, NULL, 85000.00, NULL, '2026-08-01 10:35:00', 1),
+(2, 2, 3, NULL, 120000.00, NULL, '2026-08-02 14:25:00', 1),
+(3, 3, 4, NULL, 95000.00, NULL, '2026-08-03 09:20:00', 1),
+(4, 4, 1, 2, 50000.00, 30000.00, '2026-08-04 16:45:00', 2),
+(5, 5, 5, NULL, 110000.00, NULL, '2026-08-05 11:15:00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -227,6 +428,17 @@ CREATE TABLE `paradas` (
   `Distancia` int(11) DEFAULT NULL,
   `TiempoEstimado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `paradas`
+--
+
+INSERT INTO `paradas` (`ID_Parada`, `FK_ID_Ruta`, `Nombre`, `Distancia`, `TiempoEstimado`) VALUES
+(1, 1, 'Clorinda', 120, 120),
+(2, 2, 'Resistencia', 500, 420),
+(3, 3, 'Corrientes', 600, 480),
+(4, 4, 'San Juan', 550, 450),
+(5, 5, 'Neuquén', 800, 600);
 
 -- --------------------------------------------------------
 
@@ -244,6 +456,17 @@ CREATE TABLE `pasaje` (
   `Estado` enum('reservado','pagado','cancelado') NOT NULL DEFAULT 'reservado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `pasaje`
+--
+
+INSERT INTO `pasaje` (`ID_Pasaje`, `FK_ID_Pasajero`, `FK_ID_Viaje`, `FK_ID_Asiento`, `NroTicket`, `FechaEmision`, `Estado`) VALUES
+(1, 1, 1, 1, 'TKT-AR-000001', '2026-08-01 10:30:00', 'pagado'),
+(2, 2, 2, 2, 'TKT-AR-000002', '2026-08-02 14:20:00', 'pagado'),
+(3, 3, 3, 3, 'TKT-AR-000003', '2026-08-03 09:15:00', 'reservado'),
+(4, 4, 4, 4, 'TKT-AR-000004', '2026-08-04 16:40:00', 'pagado'),
+(5, 5, 5, 5, 'TKT-AR-000005', '2026-08-05 11:10:00', 'reservado');
+
 -- --------------------------------------------------------
 
 --
@@ -260,6 +483,17 @@ CREATE TABLE `pasajero` (
   `Nacionalidad` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `pasajero`
+--
+
+INSERT INTO `pasajero` (`ID_Pasajero`, `FK_ID_PasajeroOnline`, `DNI`, `Nombre`, `Apellido`, `Telefono`, `Nacionalidad`) VALUES
+(1, 1, '40111222', 'Juan', 'Pérez', '3704112233', 'Argentina'),
+(2, 2, '41222333', 'María', 'García', '3704223344', 'Argentina'),
+(3, 3, '39333444', 'Lucas', 'López', '3704334455', 'Argentina'),
+(4, 4, '42555666', 'Sofía', 'Romero', '3704445566', 'Argentina'),
+(5, 5, '40666777', 'Agustín', 'Díaz', '3704556677', 'Argentina');
+
 -- --------------------------------------------------------
 
 --
@@ -274,6 +508,20 @@ CREATE TABLE `pasajeroonline` (
   `FechaRegistro` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `pasajeroonline`
+--
+
+INSERT INTO `pasajeroonline` (`ID_PasajeroOnline`, `Email`, `Contrasena_Hash`, `FechaNacimiento`, `FechaRegistro`) VALUES
+(1, 'juan.perez@email.com', '$2y$10$hashdemo001', '1995-04-10', '2026-07-01 10:30:00'),
+(2, 'maria.garcia@email.com', '$2y$10$hashdemo002', '1998-09-22', '2026-07-03 14:20:00'),
+(3, 'lucas.lopez@email.com', '$2y$10$hashdemo003', '1992-01-15', '2026-07-05 09:10:00'),
+(4, 'sofia.romero@email.com', '$2y$10$hashdemo004', '2000-12-08', '2026-07-08 16:45:00'),
+(5, 'agustin.diaz@email.com', '$2y$10$hashdemo005', '1996-06-30', '2026-07-10 11:00:00'),
+(6, 'baezmatias781@gmail.com', '$2y$10$8c4UXM1TDpWv3lNENT5Eu.xzTv2csh0fkHk6/xPwF.cFg5Lsmb80C', NULL, '2026-09-02 23:28:02'),
+(7, 'baezmatias78@gmail.com', 'holacomoestas', NULL, '2026-09-13 17:55:16'),
+(8, 'baezmatias6767@gmail.com', 'holacomoestas', NULL, '2026-09-13 17:55:35');
+
 -- --------------------------------------------------------
 
 --
@@ -284,6 +532,17 @@ CREATE TABLE `pension` (
   `ID_Pension` int(11) NOT NULL,
   `Opcion` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pension`
+--
+
+INSERT INTO `pension` (`ID_Pension`, `Opcion`) VALUES
+(1, 'Solo alojamiento'),
+(2, 'Desayuno incluido'),
+(3, 'Media pensión'),
+(4, 'Pensión completa'),
+(5, 'Todo incluido');
 
 -- --------------------------------------------------------
 
@@ -297,6 +556,17 @@ CREATE TABLE `proveedores` (
   `Contacto` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`ID_Proveedor`, `Nombre`, `Contacto`) VALUES
+(1, 'Andes Turismo S.A.', 'contacto@andesturismo.com.ar'),
+(2, 'Patagonia Travel', 'info@patagoniatravel.com.ar'),
+(3, 'Aerolíneas Argentinas', '0810-222-86527'),
+(4, 'Norte Bus S.R.L.', 'contacto@nortebus.com.ar'),
+(5, 'Viajes del Litoral', 'info@viajeslitoral.com.ar');
+
 -- --------------------------------------------------------
 
 --
@@ -308,6 +578,17 @@ CREATE TABLE `restricciones` (
   `FK_ID_Evento` int(11) NOT NULL,
   `Descripcion` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `restricciones`
+--
+
+INSERT INTO `restricciones` (`ID_Restriccion`, `FK_ID_Evento`, `Descripcion`) VALUES
+(1, 1, 'Cupos limitados para excursiones'),
+(2, 2, 'Se recomienda llevar abrigo'),
+(3, 3, 'Reserva previa obligatoria'),
+(4, 4, 'Ingreso permitido desde los 12 años'),
+(5, 5, 'Actividad sujeta a condiciones climáticas');
 
 -- --------------------------------------------------------
 
@@ -323,6 +604,17 @@ CREATE TABLE `rutas` (
   `TiempoEstimado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `rutas`
+--
+
+INSERT INTO `rutas` (`ID_Ruta`, `ID_Inicio`, `ID_Destino`, `DistanciaTotal`, `TiempoEstimado`) VALUES
+(1, 1, 2, 1050, 900),
+(2, 1, 4, 1250, 1080),
+(3, 2, 3, 2500, 1800),
+(4, 4, 5, 1050, 900),
+(5, 3, 5, 1350, 1200);
+
 -- --------------------------------------------------------
 
 --
@@ -334,6 +626,17 @@ CREATE TABLE `servicios` (
   `Nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `servicios`
+--
+
+INSERT INTO `servicios` (`ID_Servicio`, `Nombre`) VALUES
+(1, 'WiFi'),
+(2, 'Desayuno'),
+(3, 'Piscina'),
+(4, 'Estacionamiento'),
+(5, 'Restaurante');
+
 -- --------------------------------------------------------
 
 --
@@ -344,6 +647,17 @@ CREATE TABLE `tipohabitacion` (
   `ID_THabitacion` int(11) NOT NULL,
   `Tipo` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipohabitacion`
+--
+
+INSERT INTO `tipohabitacion` (`ID_THabitacion`, `Tipo`) VALUES
+(1, 'Individual'),
+(2, 'Doble'),
+(3, 'Triple'),
+(4, 'Suite'),
+(5, 'Familiar');
 
 -- --------------------------------------------------------
 
@@ -370,6 +684,17 @@ CREATE TABLE `valoracionh` (
   `Valoracion` decimal(3,1) NOT NULL DEFAULT 0.0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `valoracionh`
+--
+
+INSERT INTO `valoracionh` (`ID_ValoracionH`, `Valoracion`) VALUES
+(1, 4.0),
+(2, 4.5),
+(3, 3.5),
+(4, 5.0),
+(5, 4.2);
+
 -- --------------------------------------------------------
 
 --
@@ -384,6 +709,17 @@ CREATE TABLE `vehiculo` (
   `Patente` varchar(20) DEFAULT NULL,
   `Capacidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vehiculo`
+--
+
+INSERT INTO `vehiculo` (`ID_Vehiculo`, `FK_ID_MedioTrans`, `FK_ID_Clase`, `FK_ID_Proveedor`, `Patente`, `Capacidad`) VALUES
+(1, 1, 1, 4, 'AB123CD', 45),
+(2, 1, 3, 1, 'AC456EF', 50),
+(3, 3, 2, 2, 'AD789GH', 20),
+(4, 4, 4, 5, 'AE321JK', 15),
+(5, 1, 2, 4, 'AF654LM', 40);
 
 -- --------------------------------------------------------
 
@@ -403,6 +739,17 @@ CREATE TABLE `viajes` (
   `Estado` enum('programado','en_curso','completado','cancelado') NOT NULL DEFAULT 'programado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `viajes`
+--
+
+INSERT INTO `viajes` (`ID_Viaje`, `FK_ID_Proveedor`, `FK_ID_Ruta`, `FK_ID_Vehiculo`, `FK_ID_Pension`, `FK_ID_Hotel`, `FechaSalida`, `FechaLlegada`, `Estado`) VALUES
+(1, 4, 1, 1, 2, 1, '2026-09-20 08:00:00', '2026-09-22 10:00:00', 'programado'),
+(2, 1, 2, 2, 3, 3, '2026-10-05 07:00:00', '2026-10-06 13:00:00', 'programado'),
+(3, 2, 3, 3, 4, 2, '2026-08-20 09:00:00', '2026-08-22 15:00:00', 'programado'),
+(4, 5, 4, 4, 2, 4, '2026-11-01 06:30:00', '2026-11-02 20:00:00', 'programado'),
+(5, 4, 5, 5, 5, 5, '2026-12-10 08:00:00', '2026-12-11 18:00:00', 'programado');
+
 -- --------------------------------------------------------
 
 --
@@ -414,6 +761,17 @@ CREATE TABLE `viaje_chofer` (
   `FK_ID_Viaje` int(11) NOT NULL,
   `FK_ID_Chofer` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `viaje_chofer`
+--
+
+INSERT INTO `viaje_chofer` (`ID_ViajeChofer`, `FK_ID_Viaje`, `FK_ID_Chofer`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5);
 
 --
 -- Índices para tablas volcadas
@@ -444,6 +802,13 @@ ALTER TABLE `choferes`
 --
 ALTER TABLE `clases`
   ADD PRIMARY KEY (`ID_Clase`);
+
+--
+-- Indices de la tabla `codigos_verificacion`
+--
+ALTER TABLE `codigos_verificacion`
+  ADD PRIMARY KEY (`ID_Codigo`),
+  ADD UNIQUE KEY `uq_codigo_pasajeroonline` (`FK_ID_PasajeroOnline`);
 
 --
 -- Indices de la tabla `destino`
@@ -501,6 +866,13 @@ ALTER TABLE `hotel_servicios`
 ALTER TABLE `h_viajes`
   ADD PRIMARY KEY (`ID_HViaje`),
   ADD KEY `fk_hviaje_viaje_idx` (`FK_ID_Viaje`);
+
+--
+-- Indices de la tabla `infoviajes`
+--
+ALTER TABLE `infoviajes`
+  ADD PRIMARY KEY (`ID_Info`),
+  ADD KEY `FK_ID_Viaje` (`FK_ID_Viaje`);
 
 --
 -- Indices de la tabla `mediotransporte`
@@ -644,151 +1016,163 @@ ALTER TABLE `viaje_chofer`
 -- AUTO_INCREMENT de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  MODIFY `ID_Actividad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Actividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `asiento`
 --
 ALTER TABLE `asiento`
-  MODIFY `ID_Asiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Asiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `choferes`
 --
 ALTER TABLE `choferes`
-  MODIFY `ID_Chofer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Chofer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `clases`
 --
 ALTER TABLE `clases`
-  MODIFY `ID_Clase` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Clase` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `codigos_verificacion`
+--
+ALTER TABLE `codigos_verificacion`
+  MODIFY `ID_Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `destino`
 --
 ALTER TABLE `destino`
-  MODIFY `ID_Destino` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Destino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_evento`
 --
 ALTER TABLE `detalle_evento`
-  MODIFY `ID_DetalleEvento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_DetalleEvento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `establecimiento`
 --
 ALTER TABLE `establecimiento`
-  MODIFY `ID_Establecimiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Establecimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `ID_Evento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `evento_actividad`
 --
 ALTER TABLE `evento_actividad`
-  MODIFY `ID_EventoActividad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_EventoActividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `hoteles`
 --
 ALTER TABLE `hoteles`
-  MODIFY `ID_Hotel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Hotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `hotel_servicios`
 --
 ALTER TABLE `hotel_servicios`
-  MODIFY `ID_HotelServicio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_HotelServicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `h_viajes`
 --
 ALTER TABLE `h_viajes`
-  MODIFY `ID_HViaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_HViaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `infoviajes`
+--
+ALTER TABLE `infoviajes`
+  MODIFY `ID_Info` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `mediotransporte`
 --
 ALTER TABLE `mediotransporte`
-  MODIFY `ID_MedioTrans` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_MedioTrans` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `metodopago`
 --
 ALTER TABLE `metodopago`
-  MODIFY `ID_Metodo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Metodo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `ID_Pago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `paradas`
 --
 ALTER TABLE `paradas`
-  MODIFY `ID_Parada` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Parada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pasaje`
 --
 ALTER TABLE `pasaje`
-  MODIFY `ID_Pasaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Pasaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pasajero`
 --
 ALTER TABLE `pasajero`
-  MODIFY `ID_Pasajero` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Pasajero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `pasajeroonline`
 --
 ALTER TABLE `pasajeroonline`
-  MODIFY `ID_PasajeroOnline` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_PasajeroOnline` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `pension`
 --
 ALTER TABLE `pension`
-  MODIFY `ID_Pension` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Pension` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `ID_Proveedor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `restricciones`
 --
 ALTER TABLE `restricciones`
-  MODIFY `ID_Restriccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Restriccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `rutas`
 --
 ALTER TABLE `rutas`
-  MODIFY `ID_Ruta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Ruta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
 --
 ALTER TABLE `servicios`
-  MODIFY `ID_Servicio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tipohabitacion`
 --
 ALTER TABLE `tipohabitacion`
-  MODIFY `ID_THabitacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_THabitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `valoracion`
@@ -800,25 +1184,25 @@ ALTER TABLE `valoracion`
 -- AUTO_INCREMENT de la tabla `valoracionh`
 --
 ALTER TABLE `valoracionh`
-  MODIFY `ID_ValoracionH` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_ValoracionH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  MODIFY `ID_Vehiculo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `viajes`
 --
 ALTER TABLE `viajes`
-  MODIFY `ID_Viaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Viaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje_chofer`
 --
 ALTER TABLE `viaje_chofer`
-  MODIFY `ID_ViajeChofer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_ViajeChofer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -829,6 +1213,12 @@ ALTER TABLE `viaje_chofer`
 --
 ALTER TABLE `asiento`
   ADD CONSTRAINT `fk_asiento_vehiculo` FOREIGN KEY (`FK_ID_Vehiculo`) REFERENCES `vehiculo` (`ID_Vehiculo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `codigos_verificacion`
+--
+ALTER TABLE `codigos_verificacion`
+  ADD CONSTRAINT `fk_codigo_pasajeroonline` FOREIGN KEY (`FK_ID_PasajeroOnline`) REFERENCES `pasajeroonline` (`ID_PasajeroOnline`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalle_evento`
