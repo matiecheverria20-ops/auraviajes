@@ -1,0 +1,33 @@
+:root {
+  --sky: #00AEEF;
+  --sky-dark: #0086C9;
+  --sun: #FFB800;
+  --sun-dark: #E0A000;
+  --grass: #00C48C;
+  --night: #1A1E2E;
+  --slate: #3A3F55;
+  --mist: #F0F4FF;
+  --white: #FFFFFF;
+  --red: #FF4D6D;
+  --orange: #FF6B35;
+  --purple: #7B5EA7;
+}
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--mist);
+  color: var(--night);
+  min-height: 100vh;
+}
+.login-logo .img{
+  height: 52px; 
+  flex-shrink: 0; 
+}
+.login-container{
+      position:relative; z-index:1;
+      width:100%; max-width:420px;
+}

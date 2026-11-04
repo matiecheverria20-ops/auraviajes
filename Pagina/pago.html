@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Viajes — Tu próximo destino te espera</title>
+  <link rel="stylesheet" href="pago.css">
+</head>
+<body>
+
+<header>
+    <img src="imagenes/logo.png" alt="Aura Viajes">
+    <nav>
+        <a href="aura.html">Inicio</a>
+        <a href="movilidad.html">Movilidad</a>
+        <a href="paquetes.html">Paquetes</a>
+        <a href="solicitudes.html">Solicitudes</a>
+        <a href="agente.html">Agente</a>
+        <a href="encuesta.html">Encuesta</a>
+    </nav>
+  </header>
+
+    <div class="page">
+  <div class="page-title">Pago seguro</div>
+  <div class="page-sub">Completa tu informacion de pago para confirmar la reserva</div>
+  <div class="pay-grid">
+    <!-- LEFT: Payment form -->
+    <div>
+      <div class="pay-card" style="margin-bottom:1rem;">
+        <div class="pay-card-head">Metodo de pago</div>
+        <div class="pay-card-body">
+          <div class="method-tabs">
+            <button class="method-tab active" onclick="setMethod('card',this)">Tarjeta de crédito</button>
+            <button class="method-tab" onclick="setMethod('debit',this)">Tarjeta de débito</button>
+            <button class="method-tab" onclick="setMethod('transfer',this)">Transferencia bancaria</button>
+            <button class="method-tab" onclick="setMethod('efectivo',this)">Efectivo</button>
+            <button class="method-tab" onclick="setMethod('mp',this)">Mercado Pago</button>
+          </div>
+
+          <div id="card-form">
+            <div class="card-visual">
+              <div class="card-chip"></div>
+              <div class="card-number" id="card-display">•••• •••• •••• ••••</div>
+              <div class="card-meta">
+                <div><div style="font-size:0.65rem;opacity:0.7">TITULAR</div><div id="holder-display">TU NOMBRE</div></div>
+                <div><div style="font-size:0.65rem;opacity:0.7">VENCE</div><div id="exp-display">MM/AA</div></div>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:0.8rem;">
+              <label>Numero de tarjeta</label>
+              <div class="fi"><input type="text" id="card-num" maxlength="19" placeholder="0000 0000 0000 0000" oninput="formatCard(this)"></div>
+            </div>
+            <div class="field" style="margin-bottom:0.8rem;">
+              <label>Titular de la tarjeta</label>
+              <div class="fi"><input type="text" id="card-holder" placeholder="Como aparece en la tarjeta" oninput="document.getElementById('holder-display').textContent=this.value.toUpperCase()||'TU NOMBRE'"></div>
+            </div>
+            <div class="fgrid2">
+              <div class="field">
+                <label>Vencimiento</label>
+                <div class="fi"><input type="text" id="card-exp" maxlength="5" placeholder="MM/AA" oninput="formatExp(this)"></div>
+              </div>
+              <div class="field">
+                <label>CVV</label>
+                <div class="fi"><input type="text" id="card-cvv" maxlength="3" placeholder="•••"></div>
+              </div>
+            </div>
+            <div class="field" style="margin-top:0.8rem;">
+              <label>Cuotas</label>
+              <div class="fi"><select id="cuotas"><option>1 cuota sin interes</option><option>3 cuotas sin interes</option><option>6 cuotas sin interes</option><option>12 cuotas con interes</option><option>24 cuotas con interes</option></select></div>
+            </div>
+          </div>
+
+          <div id="transfer-form" style="display:none;">
+            <div style="background:var(--mist);border-radius:12px;padding:1.2rem;font-size:0.88rem;color:var(--slate);line-height:1.7;">
+              <strong style="color:var(--night);">Datos para transferencia bancaria</strong><br>
+              Banco: Banco Nación Argentina<br>
+              CBU: 0110012230001234567890<br>
+              Alias: AURA.VIAJES.SA<br>
+              Titular: Aura Viajes S.A.<br>
+              CUIT: 30-12345678-9<br><br>
+              <strong style="color:var(--night);">Importante:</strong> Envianos el comprobante a <strong>pagos@auraviajes.com</strong> con el número de solicitud.
+            </div>
+          </div>
+          <div id="efectivo-form" style="display:none;">
+            <div style="background:var(--mist);border-radius:12px;padding:1.2rem;font-size:0.88rem;color:var(--slate);line-height:1.7;">
+              <strong style="color:var(--night);">Pago en efectivo — Sucursales Aura Viajes</strong><br><br>
+              <strong>Formosa Centro:</strong> Av. 25 de Mayo 850 — Laura Fernández<br>
+              <strong>Resistencia:</strong> Av. Sarmiento 1250 — Carlos Martínez<br>
+              <strong>Posadas:</strong> Calle Bolívar 540 — María López<br>
+              <strong>Salta:</strong> Av. Belgrano 920 — Jorge Gómez<br>
+              <strong>Mendoza:</strong> Av. San Martín 650 — Sofía Ramírez<br><br>
+              Horario de atención: Lun–Vie 9 a 20 hs · Sáb 9 a 18 hs
+            </div>
+          </div>
+          <div id="mp-form" style="display:none;">
+            <div style="background:#f5f0ff;border-radius:12px;padding:1.2rem;font-size:0.88rem;color:var(--slate);line-height:1.7;border:1.5px solid #b6a3e0;">
+              <strong style="color:#6534cc;">Pago con Mercado Pago</strong><br><br>
+              Alias MP: <strong>aura.viajes</strong><br>
+              CUIT: 30-12345678-9<br><br>
+              Envianos el comprobante a <strong>pagos@auraviajes.com</strong> indicando tu nombre y número de solicitud.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pay-card">
+        <div class="pay-card-head">Datos del titular / facturacion</div>
+        <div class="pay-card-body">
+          <div class="fgrid2">
+            <div class="field"><label>Nombre completo</label><div class="fi"><input type="text" id="pay-nombre" placeholder="Nombre y apellido"></div></div>
+            <div class="field"><label>DNI / Pasaporte</label><div class="fi"><input type="text" id="pay-dni" placeholder="Numero de documento"></div></div>
+          </div>
+          <div class="fgrid2" style="margin-top:0.8rem;">
+            <div class="field"><label>Email</label><div class="fi"><input type="email" id="pay-email" placeholder="correo@ejemplo.com"></div></div>
+            <div class="field"><label>Telefono</label><div class="fi"><input type="tel" id="pay-tel" placeholder="+54 9 ..."></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Order summary -->
+    <div>
+      <div class="pay-card">
+        <div class="pay-card-head">Resumen de la reserva</div>
+        <div class="pay-card-body">
+          <div id="order-rows"></div>
+          <div class="total-row">
+            <span class="total-key">Total a pagar</span>
+            <span class="total-val" id="total-val">$0</span>
+          </div>
+          <div class="secure-note">Pago 100% seguro y encriptado</div>
+          <button class="btn btn-grass" style="width:100%;padding:1rem;font-size:1rem;" onclick="pagar()">Confirmar y pagar</button>
+          <div style="margin-top:0.8rem;text-align:center;">
+            <a href="solicitudes.html" style="font-size:0.78rem;color:var(--slate);font-weight:600;">Volver a mis solicitudes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CONFIRMACION DE PAGO -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-head">
+      <h3>Confirmar pago</h3>
+      <p>Revisá los datos antes de procesar el pago</p>
+    </div>
+    <div class="confirm-body">
+      <div class="confirm-section">
+        <div class="confirm-section-title">Detalle de la reserva</div>
+        <div id="conf-reserva-rows"></div>
+      </div>
+      <div class="confirm-section">
+        <div class="confirm-section-title">Datos del titular</div>
+        <div id="conf-titular-rows"></div>
+      </div>
+      <div class="confirm-section">
+        <div class="confirm-section-title">Metodo de pago</div>
+        <div id="conf-pago-rows"></div>
+      </div>
+      <div class="confirm-total">
+        <div>
+          <div class="confirm-total-label">Total a debitar</div>
+          <div style="font-size:0.75rem;color:var(--slate);" id="conf-cuotas-note"></div>
+        </div>
+        <div class="confirm-total-amount" id="conf-total-amount">$0</div>
+      </div>
+      <div class="confirm-warning">Al confirmar aceptas los <strong>Terminos y condiciones</strong> de Aura Viajes.<br>El cargo se realizara de forma inmediata.</div>
+      <div class="confirm-btns">
+        <button class="btn-back-conf" onclick="closeConfirm()">Volver a editar</button>
+        <button class="btn-pay-now" onclick="procesarPago()">Pagar ahora</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-box">
+    <div class="sicon">🎫</div>
+    <h2>Pago exitoso</h2>
+    <p>Tu reserva fue confirmada. En breve recibirás el comprobante por email.</p>
+    <div class="ticket-box" id="ticket-box"></div>
+    <div style="display:flex;gap:0.8rem;">
+      <button class="btn btn-outline" onclick="window.location.href='encuesta.html'" style="flex:1">Completar encuesta</button>
+      <button class="btn btn-sky" onclick="window.location.href='index.html'" style="flex:1">Ir al inicio</button>
+    </div>
+  </div>
+</div>
+
+<div class="auth-required-overlay" id="auth-required-overlay">
+  <div class="auth-required-box">
+    <div class="auth-icon">🔒</div>
+    <h2>Inicia sesión para continuar</h2>
+    <p>Para confirmar y procesar tu pedido, necesitas iniciar sesión o registrarte con tu cuenta de Aura Viajes.</p>
+    <div class="auth-btns">
+      <a href="login.html" class="btn btn-sky" style="width:100%; text-align:center;">Iniciar sesión</a>
+      <a href="registro.html" class="btn btn-outline" style="width:100%; text-align:center;">Crear una cuenta</a>
+    </div>
+  </div>
+</div>
+
+<footer><strong>Aura Viajes</strong> &middot; Todos los derechos reservados 2026</footer>
+<script>
+
+// Simulación de estado de sesión (cambiar por tu variable o token real, ej: localStorage.getItem('usuario'))
+var usuarioAutenticado = false; 
+
+window.addEventListener('DOMContentLoaded', function() {
+  if (!usuarioAutenticado) {
+    // Muestra el modal bloqueante
+    document.getElementById('auth-required-overlay').classList.add('open');
+  }
+});
+
+var params  = new URLSearchParams(window.location.search);
+var tipo    = params.get('tipo')    || 'Viaje';
+var destino = params.get('destino') || 'Destino';
+var precio  = parseInt(params.get('precio')) || 75000;
+var hotel   = params.get('hotel')   || '';
+var noches  = params.get('noches')  || '';
+
+var g_nombre = '', g_email = '', g_dni = '', g_metodo = '', g_card = '', g_cuotas = '';
+
+// Resumen lateral
+(function(){
+  var rows = [
+    {k:'Tipo', v:tipo},
+    {k:'Destino', v:destino}
+  ];
+  if(hotel)  rows.push({k:'Hotel',  v:hotel});
+  if(noches) rows.push({k:'Noches', v:noches});
+  rows.push({k:'Precio por persona', v:'$'+precio.toLocaleString('es-AR')});
+  document.getElementById('order-rows').innerHTML = rows.map(function(r){
+    return '<div class="order-row"><span class="order-key">'+r.k+'</span><span class="order-val">'+r.v+'</span></div>';
+  }).join('');
+  document.getElementById('total-val').textContent = '$'+precio.toLocaleString('es-AR');
+})();
+
+function setMethod(m, btn){
+  document.querySelectorAll('.method-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  var isCard = (m === 'card' || m === 'debit');
+  document.getElementById('card-form').style.display      = isCard ? 'block' : 'none';
+  document.getElementById('transfer-form').style.display  = m === 'transfer' ? 'block' : 'none';
+  document.getElementById('efectivo-form').style.display  = m === 'efectivo' ? 'block' : 'none';
+  document.getElementById('mp-form').style.display        = m === 'mp' ? 'block' : 'none';
+}
+
+function formatCard(inp){
+  var v = inp.value.replace(/[^0-9]/g,'').substring(0,16);
+  inp.value = v.replace(/(.{4})/g,'$1 ').trim();
+  document.getElementById('card-display').textContent = inp.value || '\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022';
+}
+
+function formatExp(inp){
+  var v = inp.value.replace(/[^0-9]/g,'').substring(0,4);
+  if(v.length > 2) v = v.substring(0,2)+'/'+v.substring(2);
+  inp.value = v;
+  document.getElementById('exp-display').textContent = v || 'MM/AA';
+}
+
+function row(k,v){ return '<div class="confirm-row"><span class="ck">'+k+'</span><span class="cv">'+v+'</span></div>'; }
+function tbrow(k,v){ return '<div class="tb-row"><span class="tb-key">'+k+'</span><span class="tb-val">'+v+'</span></div>'; }
+
+function pagar(){
+  g_nombre = document.getElementById('pay-nombre').value.trim();
+  g_email  = document.getElementById('pay-email').value.trim();
+  g_dni    = document.getElementById('pay-dni').value.trim();
+
+  if(!g_nombre){ alert('Ingresa tu nombre completo'); return; }
+  if(!g_email) { alert('Ingresa tu email');            return; }
+
+  var activeTab = document.querySelector('.method-tab.active');
+  g_metodo = activeTab ? activeTab.textContent.trim() : 'Tarjeta de credito';
+  var isTransfer = (g_metodo.toLowerCase().indexOf('transfer') !== -1 || g_metodo === 'Efectivo' || g_metodo === 'Mercado Pago' || m === 'efectivo' || m === 'mp');
+
+  if(!isTransfer){
+    var rawCard = document.getElementById('card-num').value.replace(/[^0-9]/g,'');
+    if(rawCard.length < 16){ alert('Ingresa un numero de tarjeta valido (16 digitos)'); return; }
+    if(!document.getElementById('card-holder').value.trim()){ alert('Ingresa el titular de la tarjeta'); return; }
+    if(!document.getElementById('card-exp').value){ alert('Ingresa la fecha de vencimiento'); return; }
+    if(!document.getElementById('card-cvv').value){ alert('Ingresa el CVV'); return; }
+    g_card   = '**** **** **** '+rawCard.slice(-4);
+    g_cuotas = document.getElementById('cuotas').value;
+  } else {
+    g_card   = 'Transferencia bancaria';
+    g_cuotas = 'Acreditar en 24-48 hs habiles';
+  }
+
+  var resRows = row('Tipo', tipo) + row('Destino', destino);
+  if(hotel)  resRows += row('Hotel', hotel);
+  if(noches) resRows += row('Noches', noches);
+
+  document.getElementById('conf-reserva-rows').innerHTML = resRows;
+  document.getElementById('conf-titular-rows').innerHTML =
+    row('Nombre', g_nombre) + row('DNI / Pasaporte', g_dni||'—') + row('Email', g_email);
+  document.getElementById('conf-pago-rows').innerHTML =
+    row('Metodo', g_metodo) + row('Tarjeta', g_card) + row('Cuotas', g_cuotas);
+  document.getElementById('conf-total-amount').textContent = '$'+precio.toLocaleString('es-AR');
+  document.getElementById('conf-cuotas-note').textContent  = g_cuotas;
+
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+function closeConfirm(){
+  document.getElementById('confirm-overlay').classList.remove('open');
+}
+
+function procesarPago(){
+  closeConfirm();
+
+  var reservaNum = '#AV-'+Math.floor(Math.random()*90000+10000);
+  document.getElementById('ticket-box').innerHTML =
+    tbrow('N de reserva', reservaNum) +
+    tbrow('Titular',      g_nombre)   +
+    tbrow('Destino',      destino)    +
+    tbrow('Metodo',       g_metodo)   +
+    tbrow('Total pagado', '$'+precio.toLocaleString('es-AR')) +
+    tbrow('Email',        g_email);
+
+  document.getElementById('success-overlay').classList.add('open');
+}
+
+document.getElementById('confirm-overlay').addEventListener('click', function(e){
+  if(e.target === this) closeConfirm();
+});
+</script>
+</body>
+</html>

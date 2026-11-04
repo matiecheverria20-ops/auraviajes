@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Viajes — Iniciar sesión</title>
+  <link rel="stylesheet" href="pago.css">
+  <style>
+    .auth-container {
+      max-width: 420px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+    .auth-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+    .auth-head {
+      background: linear-gradient(135deg, var(--night), var(--slate));
+      padding: 1.8rem 1.5rem;
+      color: var(--white);
+      text-align: center;
+    }
+    .auth-head h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .auth-head p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .auth-body {
+      padding: 1.8rem 1.5rem;
+    }
+    .auth-foot {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--slate);
+    }
+    .auth-foot a {
+      color: var(--sky-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .auth-foot a:hover {
+      text-decoration: underline;
+    }
+    .error-msg {
+      background: #FFE5E8;
+      color: var(--red);
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+    <img src="imagenes/logo.png" alt="Aura Viajes">
+    <nav>
+        <a href="aura.html">Inicio</a>
+        <a href="movilidad.html">Movilidad</a>
+        <a href="paquetes.html">Paquetes</a>
+        <a href="solicitudes.html">Solicitudes</a>
+        <a href="agente.html">Agente</a>
+        <a href="encuesta.html">Encuesta</a>
+    </nav>
+</header>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-head">
+      <h2>¡Hola de nuevo!</h2>
+      <p>Ingresá a tu cuenta para continuar con tu reserva</p>
+    </div>
+    <div class="auth-body">
+      <div class="error-msg" id="error-msg">Por favor, completá todos los campos.</div>
+      
+      <form id="login-form" onsubmit="iniciarSesion(event)">
+        <div class="field" style="margin-bottom: 1rem;">
+          <label>Correo electrónico</label>
+          <div class="fi">
+            <input type="email" id="login-email" placeholder="correo@ejemplo.com" required>
+          </div>
+        </div>
+
+        <div class="field" style="margin-bottom: 1.2rem;">
+          <label>Contraseña</label>
+          <div class="fi">
+            <input type="password" id="login-pass" placeholder="••••••••" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-sky" style="width:100%; padding: 0.85rem; font-size: 0.95rem;">
+          Iniciar sesión
+        </button>
+      </form>
+
+      <div class="auth-foot">
+        ¿No tenés una cuenta? <a href="registro.html">Registrate acá</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><strong>Aura Viajes</strong> &middot; Todos los derechos reservados 2026</footer>
+
+<script>
+function iniciarSesion(event) {
+  event.preventDefault();
+
+  var email = document.getElementById('login-email').value.trim();
+  var pass = document.getElementById('login-pass').value.trim();
+  var errorMsg = document.getElementById('error-msg');
+
+  if (!email || !pass) {
+    errorMsg.style.display = 'block';
+    return;
+  }
+
+  // Guarda la sesión activa en el navegador
+  localStorage.setItem('usuario_activo', JSON.stringify({ email: email }));
+
+  // Si Venía redirigido desde una compra previa, vuelve al pago; si no, va al inicio
+  var referrer = document.referrer;
+  if (referrer.indexOf('pago.html') !== -1) {
+    window.location.href = referrer;
+  } else {
+    window.location.href = 'pago.html';
+  }
+}
+</script>
+
+</body>
+</html>

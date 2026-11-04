@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura Viajes — Tu próximo destino te espera</title>
+<link rel="stylesheet" href="movilidad.css">
+</head>
+<body>
+<header>
+  <img src="imagenes/logo.png" alt="Logo Aura Viajes">
+  <nav>
+    <a href="index.html" class="active">Inicio</a>
+    <a href="movilidad.html" class="active">Movilidad</a>
+    <a href="paquetes.html">Paquetes</a>
+    <a href="solicitudes.html">Solicitudes</a>
+    <a href="agente.html">Agente</a>
+    <a href="encuesta.html">Encuesta</a>
+  </nav>
+</header>
+ 
+<div class="hero">
+  <div class="hero-badge">Todo tipo de movilidad</div>
+  <h1>Elegí cómo <em>querés viajar</em></h1>
+  <p>Vuelos, buses, trenes, cruceros y traslados en un solo lugar</p>
+</div>
+ 
+<div style="max-width:900px;margin:2.5rem auto 0;padding:0 1.5rem;position:relative;z-index:2;">
+  <div class="transport-tabs" id="transport-tabs">
+    <button class="transport-tab active" onclick="setTransport('avion',this)">
+        <span class="icon">✈</span>Vuelo</button>
+    <button class="transport-tab" onclick="setTransport('bus',this)">
+        <span class="icon">🚌</span>Bus</button>
+    <button class="transport-tab" onclick="setTransport('tren',this)">
+        <span class="icon">🚂</span>Tren</button>
+    <button class="transport-tab" onclick="setTransport('crucero',this)">
+        <span class="icon">🚢</span>Crucero</button>
+    <button class="transport-tab" onclick="setTransport('transfer',this)">
+        <span class="icon">🚐</span>Transfer</button>
+    <button class="transport-tab" onclick="setTransport('auto',this)">
+        <span class="icon">🚗</span>Auto</button>
+  </div>
+ 
+  <div class="search-box">
+    <div class="search-grid">
+      <div class="field">
+        <label>Origen</label>
+        <div class="field-inner">
+          <select id="sel-origen">
+            <option value="">— Ciudad/Aeropuerto —</option>
+            <option>Buenos Aires (EZE)</option><option>Córdoba (COR)</option>
+            <option>Rosario (ROS)</option><option>Mendoza (MDZ)</option>
+            <option>Salta (SLA)</option><option>Bariloche (BRC)</option>
+            <option>Formosa (FMA)</option><option>Resistencia (RES)</option>
+            <option>Miami (MIA)</option><option>Madrid (MAD)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Destino</label>
+        <div class="field-inner">
+          <select id="sel-destino">
+            <option value="">— Ciudad/Aeropuerto —</option>
+            <option>Buenos Aires (EZE)</option><option>Córdoba (COR)</option>
+            <option>Rosario (ROS)</option><option>Mendoza (MDZ)</option>
+            <option>Salta (SLA)</option><option>Bariloche (BRC)</option>
+            <option>Formosa (FMA)</option><option>Resistencia (RES)</option>
+            <option>Miami (MIA)</option><option>Madrid (MAD)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Fecha de ida</label>
+        <div class="field-inner"><input type="date" id="fecha-ida"></div>
+      </div>
+      <div class="field">
+        <label>Pasajeros</label>
+        <div class="field-inner">
+          <select>
+            <option>1 adulto</option><option>2 adultos</option>
+            <option>2 adultos + 1 menor</option><option>2 adultos + 2 menores</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="search-grid" style="margin-bottom:1rem;">
+      <div class="field">
+        <label>Fecha de vuelta (opcional)</label>
+        <div class="field-inner"><input type="date" id="fecha-vuelta"></div>
+      </div>
+      <div class="field">
+        <label>Clase</label>
+        <div class="field-inner">
+          <select id="clase">
+            <option>Economica</option><option>Business</option><option>Primera clase</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button class="search-btn" onclick="buscar()">Buscar disponibilidad</button>
+  </div>
+</div>
+ 
+<!-- RESULTADOS -->
+<div class="results" id="results">
+  <div class="results-header">
+    <h3 id="results-title">Resultados</h3>
+    <button class="close-btn" onclick="document.getElementById('results').classList.remove('visible')">Cerrar</button>
+  </div>
+  <div id="results-list"></div>
+</div>
+ 
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="m-title">Detalle del vuelo</h3>
+      <p id="m-sub">Selecciona la clase</p>
+    </div>
+    <div class="modal-body">
+      <div class="info-grid">
+        <div class="info-item"><div class="info-label">Sale</div><div class="info-val blue" id="m-sale">—</div></div>
+        <div class="info-item"><div class="info-label">Llega</div><div class="info-val green" id="m-llega">—</div></div>
+        <div class="info-item"><div class="info-label">Duracion</div><div class="info-val" id="m-dur">—</div></div>
+        <div class="info-item"><div class="info-label">Aerolinea</div><div class="info-val" id="m-aero">—</div></div>
+      </div>
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--slate);margin-bottom:0.5rem;">Clase</div>
+        <div class="class-opts">
+          <div class="class-opt sel-eco" id="opt-eco" onclick="setClass('eco')">
+            <div class="class-name">Economica</div>
+            <div class="class-price" id="p-eco">$0</div>
+          </div>
+          <div class="class-opt" id="opt-biz" onclick="setClass('biz')">
+            <div class="class-name">Business</div>
+            <div class="class-price" id="p-biz">$0</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeMod()">Cancelar</button>
+        <button class="btn-confirm" onclick="reservar()">Reservar → Solicitud</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<footer><strong>Aura Viajes</strong> &middot; Todos los derechos reservados 2026</footer>
+ 
+<script>
+let transporteActual = 'avion';
+let viajeActual = null;
+let claseActual = 'eco';
+ 
+const aerolineas = ['Aerolineas Argentinas','LATAM','Aeromexico','American Airlines','Iberia'];
+const duraciones = {
+  avion:['2h 30m','1h 45m','3h 10m','4h 50m','12h 20m'],
+  bus:['8h','4h','14h','6h','18h'],
+  tren:['5h','3h','9h','7h','12h'],
+  crucero:['3 dias','5 dias','7 dias','10 dias','14 dias'],
+  transfer:['45 min','1h','1h 30m','2h','30 min'],
+  auto:['3h','1h 30m','6h','4h','8h']
+};
+ 
+function setTransport(t, btn) {
+  transporteActual = t;
+  document.querySelectorAll('.transport-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+ 
+function horario(n) {
+  const h = [5,7,9,11,14,17,20,22][n%8];
+  const m = [0,25,40,55][n%4];
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
+function sumarH(h, dur) {
+  const [hr,mn] = h.split(':').map(Number);
+  const mins = parseInt(dur)*60 + (dur.includes('h') && dur.includes('m') ? parseInt(dur.split('h')[1]) : 0);
+  const tot = hr*60+mn+mins;
+  return `${String(Math.floor(tot/60)%24).padStart(2,'0')}:${String(tot%60).padStart(2,'0')}`;
+}
+ 
+function buscar() {
+  const o = document.getElementById('sel-origen').value;
+  const d = document.getElementById('sel-destino').value;
+  if(!o||!d){ alert('Elegí origen y destino'); return; }
+  if(o===d){ alert('Origen y destino no pueden ser iguales'); return; }
+  const list = document.getElementById('results-list');
+  list.innerHTML='';
+  document.getElementById('results-title').textContent = `${o.split('(')[0].trim()} → ${d.split('(')[0].trim()}`;
+  for(let i=0;i<5;i++){
+    const sale = horario(i*2);
+    const dur = duraciones[transporteActual][i];
+    const llega = sumarH(sale, dur);
+    const aero = aerolineas[i%aerolineas.length];
+    const eco = Math.round(25000*(0.85+i*0.08));
+    const biz = Math.round(eco*2.3);
+    const item = document.createElement('div');
+    item.className='result-item';
+    item.innerHTML=`
+      <div class="time-block"><div class="time-big">${sale}</div><div class="time-lbl">Sale</div></div>
+      <div class="flight-line">
+        <div class="line-bar"><span class="dot-s"></span><div class="line-inner"></div><span class="dot-e"></span></div>
+        <div class="dur-lbl">${dur} · ${aero}</div>
+      </div>
+      <div class="price-col">
+        <div class="time-big">${llega}</div>
+        <div class="time-lbl" style="text-align:right">Llega</div>
+        <div style="margin-top:0.4rem">
+          <span class="price-eco"><div class="plbl">Eco</div><div class="pval">$${eco.toLocaleString('es-AR')}</div></span>
+          <span class="price-biz"><div class="plbl">Biz</div><div class="pval">$${biz.toLocaleString('es-AR')}</div></span>
+        </div>
+      </div>`;
+    item.onclick=()=>openMod({origen:o,destino:d,sale,llega,dur,aero,eco,biz});
+    list.appendChild(item);
+  }
+  document.getElementById('results').classList.add('visible');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+ 
+function openMod(v) {
+  viajeActual=v;
+  document.getElementById('m-title').textContent=`${v.origen.split('(')[0].trim()} → ${v.destino.split('(')[0].trim()}`;
+  document.getElementById('m-sub').textContent='Selecciona la clase de viaje';
+  document.getElementById('m-sale').textContent=v.sale;
+  document.getElementById('m-llega').textContent=v.llega;
+  document.getElementById('m-dur').textContent=v.dur;
+  document.getElementById('m-aero').textContent=v.aero;
+  document.getElementById('p-eco').textContent='$'+v.eco.toLocaleString('es-AR');
+  document.getElementById('p-biz').textContent='$'+v.biz.toLocaleString('es-AR');
+  setClass('eco');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function setClass(c) {
+  claseActual=c;
+  document.getElementById('opt-eco').className='class-opt'+(c==='eco'?' sel-eco':'');
+  document.getElementById('opt-biz').className='class-opt'+(c==='biz'?' sel-biz':'');
+}
+function closeMod(){ document.getElementById('modal-overlay').classList.remove('open'); }
+function reservar() {
+  if(!viajeActual) return;
+  const precio = claseActual==='eco'?viajeActual.eco:viajeActual.biz;
+  const p=new URLSearchParams({
+    origen:viajeActual.origen,destino:viajeActual.destino,
+    sale:viajeActual.sale,llega:viajeActual.llega,
+    dur:viajeActual.dur,aero:viajeActual.aero,
+    clase:claseActual,precio,tipo:transporteActual
+  });
+  window.location.href='solicitudes.html?'+p.toString();
+}
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeMod();});
+</script>
+</body>
+</html>

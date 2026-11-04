@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Viajes — Tu próximo destino te espera</title>
+  <link rel="stylesheet" href="aura.css">
+</head>
+<body>
+
+  <header>
+
+    <img src="imagenes/logo.png" alt="Logo Aura Viajes">
+
+    <nav>
+      <a href="index.html" class="active">Inicio</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn">Destinos ▾</button>
+        <div class="nav-dropmenu">
+          <div class="dropmenu-col">
+            <span class="dropmenu-title">Formosa</span>
+            <a href="movilidad.html">Formosa Capital</a>
+            <a href="https://maps.google.com/?q=Formosa+Argentina" target="_blank">Ver en mapa →</a>
+          </div>
+          <div class="dropmenu-col">
+            <span class="dropmenu-title">Misiones</span>
+            <a href="movilidad.html">Puerto Iguazú</a>
+            <a href="https://maps.google.com/?q=Puerto+Iguazu" target="_blank">Ver en mapa →</a>
+          </div>
+          <div class="dropmenu-col">
+            <span class="dropmenu-title">Río Negro</span>
+            <a href="movilidad.html">Bariloche</a>
+            <a href="https://maps.google.com/?q=Bariloche" target="_blank">Ver en mapa →</a>
+          </div>
+          <div class="dropmenu-col">
+            <span class="dropmenu-title">Noroeste</span>
+            <a href="movilidad.html">Salta</a>
+            <a href="movilidad.html">Mendoza</a>
+            <a href="paquetes.html">Ver todos →</a>
+          </div>
+        </div>
+      </div>
+ 
+
+      <a href="movilidad.html">Movilidad</a>
+      <a href="solicitudes.html">Solicitudes</a>
+      <a href="agente.html">Agente</a>
+      <a href="encuesta.html">Encuesta</a>
+    </nav>
+ 
+    <!-- Teléfono en header -->
+    <div class="header-phone">
+      <span class="phone-label">Venta telefónica</span>
+      <a href="tel:08002222872" class="phone-number">0800-222-AURA</a>
+    </div>
+  </header>
+ 
+  <!-- HERO + BUSCADOR -->
+  <section class="hero">
+    <div class="hero-badge">Sistema de Agencia de Viajes</div>
+    <h1>Bienvenido a <em>Aura Viajes</em></h1>
+    <p>Encontrá tu próximo destino con vuelo, hotel y todo incluido</p>
+ 
+    <div class="search-box">
+      <div class="search-tabs">
+        <button class="search-tab active" onclick="setTab(this,'paquetes.html')">Paquetes</button>
+        <button class="search-tab" onclick="setTab(this,'movilidad.html')">Vuelos y Movilidad</button>
+      </div>
+      <form class="search-form" id="search-form" action="paquetes.html" method="GET">
+        <div class="form-group">
+          <label for="destino">Destino</label>
+          <!-- Autocompletado con destinos de la BD (tabla destino) -->
+          <input type="text" id="destino" name="destino" placeholder="Formosa, Bariloche, Salta..." list="destinos-db">
+          <datalist id="destinos-db">
+            <option value="Formosa, Formosa">
+            <option value="Puerto Iguazú, Misiones">
+            <option value="Bariloche, Río Negro">
+            <option value="Salta, Salta">
+            <option value="Mendoza, Mendoza">
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label for="mes">¿En qué mes querés ir?</label>
+          <select id="mes" name="mes">
+            <option value="">Cualquier mes</option>
+            <option>Enero</option><option>Febrero</option><option>Marzo</option>
+            <option>Abril</option><option>Mayo</option><option>Junio</option>
+            <option>Julio</option><option>Agosto</option><option>Septiembre</option>
+            <option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="personas">Pasajeros</label>
+          <select id="personas" name="personas">
+            <option value="1">1 Pasajero</option>
+            <option value="2" selected>2 Pasajeros</option>
+            <option value="3">3 Pasajeros</option>
+            <option value="4">4+ Pasajeros</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-search">Buscar</button>
+      </form>
+    </div>
+  </section>
+ 
+  <!-- BARRA DE BENEFICIOS -->
+  <section class="features-bar">
+    <div class="features-container">
+      <div class="feature-item">
+        <img src="imagenes/tarjeta.png" alt="tarjeta" class="iconos">
+        <div><h4>Cuotas y Financiación</h4><p>Múltiples medios de pago</p></div>
+      </div>
+      <div class="feature-item">
+        <img src="imagenes/medico.png" alt="médico" class="iconos">
+        <div><h4>Viajá Seguro</h4><p>Asistencia médica incluida</p></div>
+      </div>
+      <div class="feature-item">
+        <img src="imagenes/atencion.png" alt="atención" class="iconos">
+        <div><h4>Atención Personalizada</h4><p>Agentes a tu disposición</p></div>
+      </div>
+      <div class="feature-item">
+        <img src="imagenes/precio.png" alt="precio" class="iconos">
+        <div><h4>Mejor Precio</h4><p>Garantía en todos los paquetes</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRUSEL DE DESTINOS (tus imágenes locales) -->
+  <section class="carusel-section">
+    <div class="carusel-wrapper">
+      <div class="carusel-track" id="carusel-track">
+
+        <div class="carusel-slide active">
+          <img src="imagenes/BA.jpg" alt="Buenos Aires">
+          <div class="carusel-caption">
+            <div class="carusel-country">Argentina</div>
+            <div class="carusel-city">Buenos Aires</div>
+            <div class="carusel-sub">La capital que nunca duerme</div>
+            <a href="paquetes.html" class="carusel-cta">Ver paquetes</a>
+          </div>
+        </div>
+
+        <div class="carusel-slide">
+          <img src="imagenes/rio.jpg" alt="Rio de Janeiro">
+          <div class="carusel-caption">
+            <div class="carusel-country">Brasil</div>
+            <div class="carusel-city">Rio de Janeiro</div>
+            <div class="carusel-sub">Maravilla natural del mundo</div>
+            <a href="paquetes.html" class="carusel-cta">Ver paquetes</a>
+          </div>
+        </div>
+
+        <div class="carusel-slide">
+          <img src="imagenes/asuncion.jpg" alt="Asunción">
+          <div class="carusel-caption">
+            <div class="carusel-country">Paraguay</div>
+            <div class="carusel-city">Asunción</div>
+            <div class="carusel-sub">Madre de ciudades</div>
+            <a href="paquetes.html" class="carusel-cta">Ver paquetes</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Flechas -->
+      <button class="carousel-arrow carousel-prev" onclick="moveCarousel(-1)">&#8249;</button>
+      <button class="carousel-arrow carousel-next" onclick="moveCarousel(1)">&#8250;</button>
+
+      <!-- Dots -->
+      <div class="carousel-dots">
+        <button class="carousel-dot active" onclick="goTo(0)"></button>
+        <button class="carousel-dot" onclick="goTo(1)"></button>
+        <button class="carousel-dot" onclick="goTo(2)"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS DE ACCESO RÁPIDO -->
+  <section class="modulos">
+    <h2>Accesos rápidos al sistema</h2>
+    <div class="grid">
+      <a href="movilidad.html" class="mod-card">
+        <img src="imagenes/avion.png" alt="avion" class="iconos">
+        <h3>Todo tipo de movilidad</h3>
+        <p>Buscá y compará vuelos, buses, trenes, cruceros y traslados.</p>
+        <span class="arrow">Ir al buscador →</span>
+      </a>
+      <a href="paquetes.html" class="mod-card">
+        <img src="imagenes/paquetes.png" alt="paquetes" class="iconos">
+        <h3>Paquetes turísticos</h3>
+        <p>Paquetes todo incluido con hotel, comida, tipo de cama y servicios.</p>
+        <span class="arrow">Ver paquetes →</span>
+      </a>
+      <a href="solicitudes.html" class="mod-card">
+        <img src="imagenes/solicitud.png" alt="solicitudes" class="iconos">
+        <h3>Mis solicitudes</h3>
+        <p>Revisá el estado de tus reservas y solicitudes de viaje.</p>
+        <span class="arrow">Ver solicitudes →</span>
+      </a>
+      <a href="agente.html" class="mod-card">
+        <img src="imagenes/agente.png" alt="agente" class="iconos">
+        <h3>Panel del agente</h3>
+        <p>Confirmá, gestioná y aprobá solicitudes de clientes.</p>
+        <span class="arrow">Abrir panel →</span>
+      </a>
+      <a href="encuesta.html" class="mod-card">
+        <img src="imagenes/encuesta.png" alt="encuesta" class="iconos">
+        <h3>Encuesta de satisfacción</h3>
+        <p>Contanos cómo fue tu experiencia de viaje con nosotros.</p>
+        <span class="arrow">Completar encuesta →</span>
+      </a>
+      <a href="pago.html" class="mod-card">
+        <img src="imagenes/pago.png" alt="pago" class="iconos">
+        <h3>Pagos</h3>
+        <p>Realizá el pago de tu reserva de forma rápida y segura.</p>
+        <span class="arrow">Ir a pagos →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECCIÓN BD: Rutas disponibles (tabla rutas + destino) -->
+  <section class="pkg-section">
+    <div class="pkg-section-head">
+      <h2>Rutas disponibles</h2>
+      <a href="movilidad.html" class="ver-todos">Ver todas →</a>
+    </div>
+    <div class="pkg-list" id="list-rutas"></div>
+  </section>
+
+  <!-- SECCIÓN BD: Paquetes con hotel (tabla viajes + hoteles) -->
+  <section class="pkg-section">
+    <div class="pkg-section-head">
+      <h2>Paquetes con hotel incluido</h2>
+      <a href="paquetes.html" class="ver-todos">Ver todos →</a>
+    </div>
+    <div class="pkg-list" id="list-hoteles"></div>
+  </section>
+
+  <!-- SECCIÓN BD: Eventos y festivales (tabla eventos) -->
+  <section class="pkg-section">
+    <div class="pkg-section-head">
+      <h2>Eventos y festivales 2026–2027</h2>
+      <a href="paquetes.html" class="ver-todos">Ver todos →</a>
+    </div>
+    <div class="pkg-list" id="list-eventos"></div>
+  </section>
+
+  <!-- SECCIÓN: Salidas Grupales -->
+  <section class="pkg-section">
+    <div class="pkg-section-head">
+      <h2>Salidas Grupales Europa, Exóticos y más</h2>
+      <a href="paquetes.html?cat=grupales" class="ver-todos">Ver todos →</a>
+    </div>
+    <div class="pkg-list" id="list-grupales"></div>
+  </section>
+ 
+  <!-- SECCIÓN: Playas del Caribe -->
+    <section class="pkg-section">
+      <div class="pkg-section-head">
+        <h2>Playas del Caribe y Centroamérica</h2>
+        <a href="paquetes.html?cat=caribe" class="ver-todos">Ver todos →</a>
+      </div>
+      <div class="pkg-list" id="list-caribe"></div>
+    </section>
+
+    <!-- SECCIÓN: Brasil y Sudamérica -->
+    <section class="pkg-section">
+      <div class="pkg-section-head">
+        <h2>Brasil y Sudamérica</h2>
+        <a href="paquetes.html?cat=sudamerica" class="ver-todos">Ver todos →</a>
+      </div>
+      <div class="pkg-list" id="list-sudamerica"></div>
+    </section>
+
+    <!-- SECCIÓN: Argentina en cuotas -->
+    <section class="pkg-section">
+      <div class="pkg-section-head">
+        <h2>Argentina en 12 cuotas sin interés</h2>
+        <a href="paquetes.html?cat=argentina" class="ver-todos">Ver todos →</a>
+      </div>
+      <div class="pkg-list" id="list-argentina"></div>
+    </section>
+
+    <footer>
+      <div class="footer-top">
+        <div class="footer-grid">
+          <div class="footer-col footer-brand">
+            <img src="imagenes/logo.png" alt="Aura Viajes" class="footer-logo">
+            <p>Horario de atención: Lunes a Viernes de 9 a 20 hs y Sábados 9 a 18 hs</p>
+            <a href="tel:08002222872" class="footer-phone">0800-222-AURA</a>
+            <a href="mailto:info@auraviajes.com" class="footer-email">info@auraviajes.com</a>
+          </div>
+          <div class="footer-col">
+            <h4>Destinos</h4>
+            <a href="movilidad.html">Formosa, Formosa</a>
+            <a href="movilidad.html">Puerto Iguazú, Misiones</a>
+            <a href="movilidad.html">Bariloche, Río Negro</a>
+            <a href="movilidad.html">Salta, Salta</a>
+            <a href="movilidad.html">Mendoza, Mendoza</a>
+          </div>
+          <div class="footer-col">
+            <h4>Información útil</h4>
+            <a href="#">Documentación para salir del país</a>
+            <a href="#">Políticas de cancelación</a>
+            <a href="#">Términos y condiciones</a>
+            <a href="#">Política de privacidad</a>
+            <a href="#">Medios de pago</a>
+          </div>
+          <div class="footer-col">
+            <h4>Sucursales</h4>
+            <a href="#">Formosa Centro — Av. 25 de Mayo 850</a>
+            <a href="#">Resistencia — Av. Sarmiento 1250</a>
+            <a href="#">Posadas — Calle Bolívar 540</a>
+            <a href="#">Salta — Av. Belgrano 920</a>
+            <a href="#">Mendoza — Av. San Martín 650</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span><strong>Aura Viajes S.A.</strong> &mdash; Leg. IATA 12345 &mdash; CUIT: 30-99887766-4</span>
+        <span>Todos los derechos reservados 2026</span>
+      </div>
+    </footer>
+
+    <script>
+      // Renderizador genérico de tarjetas para la página de inicio
+      function renderLista(containerId, items) {
+        var el = document.getElementById(containerId);
+        if (!el) return;
+        el.innerHTML = items.map(function(item) {
+          return '<div class="pkg-card-mini" style="background:#fff;padding:1rem;border-radius:10px;margin-bottom:0.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">' +
+            '<h4 style="margin:0 0 0.3rem 0;color:var(--night);">' + item.name + '</h4>' +
+            '<p style="margin:0;font-size:0.85rem;color:var(--slate);">' + (item.info || item.cuotas) + '</p>' +
+            '<strong style="color:var(--grass);display:block;margin-top:0.4rem;">' + item.precio + '</strong>' +
+          '</div>';
+        }).join('');
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        renderLista('list-rutas', RUTAS_DB);
+        renderLista('list-hoteles', HOTELES_DB);
+        renderLista('list-eventos', EVENTOS_DB);
+        renderLista('list-grupales', PKGS.filter(function(p){ return p.cat==='grupales'; }));
+        renderLista('list-caribe', PKGS.filter(function(p){ return p.cat==='caribe'; }));
+      });
+    </script>
+  </body>
+</html>

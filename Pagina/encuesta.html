@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura Viajes — Tu próximo destino te espera</title>
+<link rel="stylesheet" href="encuesta.css">
+</head>
+<body>
+<header>
+  <img src="imagenes/logo.png" alt="Logo Aura Viajes">
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="movilidad.html">Movilidad</a>
+    <a href="paquetes.html">Paquetes</a>
+    <a href="solicitudes.html">Solicitudes</a>
+    <a href="agente.html">Agente</a>
+    <a href="encuesta.html" class="active">Encuesta</a>
+  </nav>
+</header>
+<div class="page" id="enc-form">
+  <div class="page-title">Encuesta de satisfaccion</div>
+  <div class="page-sub">Tu opinion nos ayuda a mejorar. Completala en menos de 2 minutos.</div>
+ 
+  <div class="enc-card">
+    <h3>1. ¿Cómo calificarias la atencion del agente?</h3>
+    <div class="stars-row" id="stars-atencion">
+      <button class="star-opt" onclick="setStars('atencion',1,this)">1</button>
+      <button class="star-opt" onclick="setStars('atencion',2,this)">2</button>
+      <button class="star-opt" onclick="setStars('atencion',3,this)">3</button>
+      <button class="star-opt" onclick="setStars('atencion',4,this)">4</button>
+      <button class="star-opt" onclick="setStars('atencion',5,this)">5</button>
+    </div>
+  </div>
+ 
+  <div class="enc-card">
+    <h3>2. ¿El viaje cumplió con tus expectativas?</h3>
+    <div class="options-grid" id="opts-expectativas">
+      <button class="opt-btn" onclick="setOpt('expectativas',this)">Supero mis expectativas</button>
+      <button class="opt-btn" onclick="setOpt('expectativas',this)">Cumplio mis expectativas</button>
+      <button class="opt-btn" onclick="setOpt('expectativas',this)">Parcialmente</button>
+      <button class="opt-btn" onclick="setOpt('expectativas',this)">No cumplio</button>
+    </div>
+  </div>
+ 
+  <div class="enc-card">
+    <h3>3. ¿Qué aspecto fue el mejor?</h3>
+    <div class="options-grid" id="opts-mejor">
+      <button class="opt-btn" onclick="setOpt('mejor',this)">Precio y relacion calidad</button>
+      <button class="opt-btn" onclick="setOpt('mejor',this)">Atencion al cliente</button>
+      <button class="opt-btn" onclick="setOpt('mejor',this)">Comodidad del alojamiento</button>
+      <button class="opt-btn" onclick="setOpt('mejor',this)">Gastronomia</button>
+      <button class="opt-btn" onclick="setOpt('mejor',this)">Traslados y logistica</button>
+      <button class="opt-btn" onclick="setOpt('mejor',this)">Excursiones y actividades</button>
+    </div>
+  </div>
+ 
+  <div class="enc-card">
+    <h3>4. ¿Qué podriamos mejorar?</h3>
+    <div class="options-grid" id="opts-mejorar">
+      <button class="opt-btn" onclick="setOpt('mejorar',this)">Tiempos de respuesta</button>
+      <button class="opt-btn" onclick="setOpt('mejorar',this)">Mas opciones de destinos</button>
+      <button class="opt-btn" onclick="setOpt('mejorar',this)">Proceso de pago</button>
+      <button class="opt-btn" onclick="setOpt('mejorar',this)">Informacion del paquete</button>
+      <button class="opt-btn" onclick="setOpt('mejorar',this)">Atencion post-viaje</button>
+      <button class="opt-btn" onclick="setOpt('mejorar',this)">Nada, todo estuvo bien</button>
+      <button class="opt-btn" onclick="setOpt('mejorar',this)">Otro</button>
+    </div>
+  </div>
+ 
+  <div class="enc-card">
+    <h3>5. ¿Con qué probabilidad nos recomendarias? (0–10)</h3>
+    <div class="nps-row" id="nps-row">
+      <button class="nps-btn" onclick="setNPS(0,this)">0</button><button class="nps-btn" onclick="setNPS(1,this)">1</button>
+      <button class="nps-btn" onclick="setNPS(2,this)">2</button><button class="nps-btn" onclick="setNPS(3,this)">3</button>
+      <button class="nps-btn" onclick="setNPS(4,this)">4</button><button class="nps-btn" onclick="setNPS(5,this)">5</button>
+      <button class="nps-btn" onclick="setNPS(6,this)">6</button><button class="nps-btn" onclick="setNPS(7,this)">7</button>
+      <button class="nps-btn" onclick="setNPS(8,this)">8</button><button class="nps-btn" onclick="setNPS(9,this)">9</button>
+      <button class="nps-btn" onclick="setNPS(10,this)">10</button>
+    </div>
+    <div class="nps-labels"><span>Nada probable</span><span>Muy probable</span></div>
+  </div>
+ 
+  <div class="enc-card">
+    <h3>6. Comentarios adicionales</h3>
+    <div class="fi" style="border:2px solid #E8EAF0;border-radius:10px;padding:0.6rem 0.9rem;">
+      <textarea id="comentarios" style="width:100%;min-height:90px;border:none;outline:none;font-family:'Nunito',sans-serif;font-size:0.9rem;resize:vertical;" placeholder="Contanos tu experiencia..."></textarea>
+    </div>
+  </div>
+ 
+  <button class="btn btn-grass" onclick="enviarEncuesta()" style="width:100%;padding:1rem;font-size:1rem;">Enviar encuesta</button>
+</div>
+ 
+<div class="success-screen page" id="success-screen">
+  <div class="enc-card" style="text-align:center;padding:3rem 1.5rem;">
+    <div class="success-icon">🎉</div>
+    <h2>¡Gracias por tu opinion!</h2>
+    <p>Tu respuesta fue registrada. Nos ayuda a seguir mejorando nuestro servicio para que cada viaje sea aun mejor.</p>
+    <a href="index.html" class="btn btn-sky">Volver al inicio</a>
+  </div>
+</div>
+ 
+<footer><strong>Aura Viajes</strong> &middot; Todos los derechos reservados 2026</footer>
+<script>
+const respuestas={};
+function setStars(grupo,val,btn){
+  respuestas[grupo]=val;
+  const row=btn.closest('.stars-row');
+  row.querySelectorAll('.star-opt').forEach((b,i)=>b.classList.toggle('active',i<val));
+}
+function setOpt(grupo,btn){
+  respuestas[grupo]=btn.textContent;
+  btn.closest('.options-grid').querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function setNPS(val,btn){
+  respuestas.nps=val;
+  document.querySelectorAll('.nps-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function enviarEncuesta(){
+  respuestas.comentarios=document.getElementById('comentarios').value;
+  if(!respuestas.atencion){ alert('Por favor calificá la atencion'); return; }
+  console.log('Encuesta enviada:',respuestas);
+  document.getElementById('enc-form').style.display='none';
+  document.getElementById('success-screen').classList.add('visible');
+}
+</script>
+</body>
+</html>
